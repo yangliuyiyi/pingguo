@@ -1,0 +1,936 @@
+@import "base";
+body{
+  overflow-x: hidden;
+}
+.hui{
+  overflow: hidden;
+  position: fixed;
+  top:0;left: 0;right: 0;bottom: 0;
+  margin: auto;
+  background: rgba(0,0,0,0.2);
+  height: 100%;
+  width: 100%;
+  z-index:2222;
+  opacity: 0;
+}
+.hui.show{
+  opacity:1;
+  z-index:3344;
+}
+.header{
+  height:44px;
+  z-index:3355;
+  background:rgba(0,0,0,0.8);
+  .header-inner{
+    max-width:1024px;
+    height:44px;
+    margin:0 auto;
+    padding:0 15px;
+    box-sizing:border-box;
+    .nav-phone{
+      display:none;
+    }
+    @include ons{
+      .nav{
+          display:none;
+        }
+      .nav-phone{
+        display:block;
+      }
+    }
+    .nav{
+      height:44px;
+      text-align:justify;
+      $nav-list:(
+              'logo':20px,
+              'mac':31px,
+              'ipad':30px,
+              'iphone':48px,
+              'watch':44px,
+              'tv':20px,
+              'music':40px,
+              'support':57px,
+              'search':20px,
+              'bag':18px,
+      );
+      @each $key in map_keys($nav-list){
+        .#{$key} a{
+          width:map_get($nav-list,$key);
+          background:url(../imgs/#{$key}.svg) no-repeat center center;
+          &:hover{
+            opacity:0.65;
+          }
+        }
+      }
+      li{
+        height:44px;
+        display:inline-block;
+        line-height:44px;
+        z-index:5555;
+        a{
+          display:inline-block;
+          padding:0 10px;
+          height:44px;
+          span{
+            line-height:0;
+            height:0;
+            width:0;
+            font-size:0;
+          }
+        }
+      }
+      .bag.close{
+        a{
+          background:url( ../imgs/2Q11.jpg)no-repeat center center;
+        }
+      }
+      &::after{
+        content:'';
+        width:100%;
+        line-height:0;
+        height:0;
+        display:inline-block;
+      }
+    }
+    .search-box{
+      transform: translateX(80px);
+      opacity: 0;
+      transition:all .8s ease .3s;
+      @include zhong;
+        z-index:100;
+        width:682px;
+        height:44px;
+      @include ons{
+        display:none;
+      }
+        .search{
+          width:40px;
+          height:44px;
+          float:left;
+          background: url(../imgs/search.svg)no-repeat center center;
+        }
+        input{
+          width:642px;
+          float:left;
+          height:100%;
+          line-height:44px;
+          padding-left:10px;
+          font-size: 15px;
+          box-sizing: border-box;
+        }
+        }
+    .menu{
+    opacity:1;
+    transform:scale(1,1);
+    transition:all .5s ease;
+  }
+    .search-box.searching{
+      transform: translateX(0);
+      opacity:1;
+    }
+    .nav.searching{
+      .menu{
+        transform: scale(0.3,0.3);
+        opacity:0;
+      }
+    }
+    @include ons{
+        padding:0;
+        .nav-phone{
+          height:48px;
+          background: rgba(0,0,0,0.95);
+          z-index:5;
+          text-align: center;
+          &::after{
+            content:'';
+            width:100%;
+            overflow:hidden;
+            line-height:0;
+            height:0;
+            display:inline-block;
+          }
+          li{
+            float:left;
+            @include cube(48px);
+            line-height: 48px;
+            span{
+              line-height:0;
+              height:0;
+              width:0;
+              font-size:0;
+            }
+          }
+          .nav-menu{
+            @include shangxia;
+            left:0;
+            padding:10px 15px;
+            box-sizing: border-box;
+            transition: transform .5s ease;
+            transform-origin: 50%;
+            a{
+              padding:10px 10px;
+              box-sizing: border-box;
+              @include gai;
+              @include zhong;
+              &:hover{
+                opacity:0.65;
+              }
+              .shang,.xia{
+                transition: all 0.6s ease;
+                @include zuoyou;
+                width:18px;
+                height:1px;
+                background:#fff;
+                display:block;
+                z-index: 10;
+              }
+              .shang{
+                top:20px;
+              }
+              .xia{
+                bottom: 20px;
+              }
+            }
+          }
+          .nav-menu.change{
+            .shang {
+              @include zhong;
+              transform:rotate(45deg) ;
+            }
+            .xia{
+              @include zhong;
+              transform: rotate(-45deg);
+            }
+          }
+          .logo{
+            @include zuoyou;
+            a{
+              @include gai;
+              display:block;
+              background: url(../imgs/logo.svg) no-repeat center center;
+              &:hover{
+                opacity:0.65;
+              }
+            }
+          }
+          .bag{
+            @include shangxia;
+            right:0;
+            transition: transform .3s ease .6s;
+            a{
+              @include gai;
+              display:block;
+              background: url(../imgs/bag.svg) no-repeat center center;
+              &:hover{
+                opacity:0.65;
+              }
+            }
+          }
+
+        }
+      .nav-xy{
+        display:none;
+        width:100%;
+        height:1020px;
+        background: rgb(0,0,0);
+        position: absolute;
+        top:48px;
+        left:0;
+        padding:20px 0;
+        li{
+          width:100%;
+          padding:0 60px;
+          opacity: 0;
+          transition: all .8s ease;
+          a{
+            border-bottom: 1px solid #333;
+            width: 100%;height: 100%;
+            display: block;
+            color: #fff;
+            padding:12px 0;
+            text-align: left;
+            font-family: 'thin';
+            font-size: 20px;
+            &:hover{
+              opacity: 0.7;
+            }
+          }
+          span{
+            display:block;
+            width: 100%;
+            height:100%;
+            padding:12px 0;
+            font-family:"normal";
+            border-bottom:1px solid #fff;
+            font-size:22px;
+            color:#fff;
+            &:hover{
+              opacity:0.7;
+            }
+          }
+        }
+        li:nth-child(1){
+          animation:luo .8s ease .2s forwards;
+        }
+        li:nth-child(2){
+          animation:luo .8s ease .3s forwards;
+        }
+        li:nth-child(3){
+          animation:luo .8s ease .4s forwards;
+        }
+        li:nth-child(4){
+          animation:luo .8s ease .5s forwards;
+        }
+        li:nth-child(5){
+          animation:luo .8s ease .6s forwards;
+        }
+        li:nth-child(6){
+          animation:luo .8s ease .7s forwards;
+        }
+        li:nth-child(7){
+          animation:luo .8s ease .8s forwards;
+        }
+        li:nth-child(8){
+          animation:luo .8s ease .9s forwards;
+        }
+        li:nth-child(9){
+          animation:luo .8s ease 1s forwards;
+        }
+      @keyframes luo {
+        0%{
+          transform: translateY(-1000px);
+          opacity:0;
+        }
+        100%{
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }}
+            }
+          }
+        }
+
+@media screen and (min-width:$s-size){
+  .nav-xy{
+    opacity: 0;
+    height:0;
+    display: none;
+  }
+}
+.text{
+  width:682px;
+  height:230px;
+  z-index:4444;
+  @include zhong;
+  margin-top:44px;
+  padding:24px 25px 0 55px;
+  color: #999;
+  box-sizing: border-box;
+  opacity:0;
+  transition: all .8s ease .4s;
+  transform: translateX(40px);
+  background: #fff;
+  @include ons{
+    display: none;
+  }
+  h3{
+    padding:2px 0;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 400;
+    opacity:0;
+    animation:pao  .8s ease  forwards .6s;
+  }
+  p{
+    display: block;
+    padding:7px 16px;
+    opacity:0;
+    &:hover{
+      background: #F2F2F2;
+    }
+    a{
+      display: block;
+      color: #999;
+      &:hover{
+        color:#0070c9;
+      }
+    }
+  }
+}
+.text.searching{
+  transform:translateX(0px);
+  opacity: 1;
+  z-index:4444;
+  @keyframes  pao{
+    0%{
+      transform:translateX(40px);
+    }
+    100%{
+      transform:translateX(0);
+      opacity: 1;
+    }
+  }
+  h3{
+    animation: pao .8s ease  forwards .8s;
+  }
+  @for $i from 1 through 6{
+    p:nth-child(#{$i}){
+      animation: pao .8s ease  forwards .6s + $i * 0.2s;
+    }
+  }
+}
+.banner{
+  cursor:pointer;
+  width:100%;
+  height:606px;
+  z-index:3333;
+  overflow: hidden;
+  background: #fff;
+  @include ons{
+    height:508px;
+  }
+  .banner-inner{
+    width:100%;
+    height: 100%;
+    li{
+      float:left;
+
+      a{
+        @include gai;
+        display: block;
+        margin: auto;
+      }
+    }
+    .ipad{
+      width:100%;
+      height:100%;
+      position:absolute;
+      left:0;
+      top:0;
+      background:url(../imgs/ipad_pro_family_medium.jpg)no-repeat 60% 320%;
+      .img{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:60px;
+        text-align: center;
+        h2{
+          display: block;
+          font-size: 52px;
+          font-weight:200;
+          color: #333333;
+        }
+      }
+      .title {
+        width: 100%;
+        height: auto;
+        display: block;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 130px;
+        margin: auto;
+        font-size: 32px;
+        color: #333;
+        line-height: 1.125;
+        font-weight: 300;
+      }
+      @include onm{
+        background:url(../imgs/ipad_pro_family_small.jpg)no-repeat 50% 70%;
+      }
+    }
+    .macbook{
+      width:100%;
+      height:100%;
+      position:absolute;
+      left:-100%;
+      top:0;
+      .img{
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:80px;
+        text-align: center;
+        h2{
+          display: block;
+          font-size: 52px;
+          font-weight:200;
+          color: #333333;
+        }
+      }
+      .title {
+        width: 100%;
+        height: auto;
+        display: block;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 160px;
+        margin: auto;
+        font-size: 32px;
+        color: #333;
+        line-height: 1.125;
+        font-weight: 300;
+      }
+      background:url(../imgs/macbook_medium.png)no-repeat 50% 70%;
+      @include onm{
+        background:url(../imgs/macbook_small.png)no-repeat 50% 60%;
+      }
+    }
+    .iphone{
+      width:100%;
+      height:100%;
+      position:absolute;
+      left:-100%;
+      top:0;
+      background:url(../imgs/iphone_6s_medium.jpg)no-repeat bottom center;
+      .img{
+        width:205px;
+        height:40px ;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:60px;
+        margin: auto;
+        text-align: center;
+        background:url(../imgs/iphone_6s_medium.png)no-repeat center center;
+        @include  onm{
+          width: 166px;
+          height:31px;
+          background:url(../imgs/iphone_6s_small.png)no-repeat center center;
+        }
+      }
+      .title {
+        width: 100%;
+        height: auto;
+        display: block;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 130px;
+        margin: auto;
+        font-size: 32px;
+        color: #333;
+        line-height: 1.125;
+        font-weight: 300;
+        @include ons{
+          font-size: 24px;
+        }
+      }
+      @include onm{
+        background:url(../imgs/iphone_6s_small.jpg)no-repeat 50% 70%;
+      }
+    }
+    .watch{
+      width:100%;
+      height:100%;
+      position:absolute;
+      left:-100%;
+      top:0;
+      background:url(../imgs/apple_watch_trio_medium.jpg)no-repeat 50% 70%;
+      .img{
+        width:184px;
+        height:39px ;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top:60px;
+        margin: auto;
+        text-align: center;
+        background:url(../imgs/apple_watch_medium.png)no-repeat center center;
+        @include  ons{
+          width: 145px;
+          height:31px;
+          background:url(../imgs/apple_watch_small.png)no-repeat center center;
+        }
+      }
+      .title {
+        width: 100%;
+        height: auto;
+        display: block;
+        text-align: center;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 130px;
+        margin: auto;
+        font-size: 32px;
+        color: #333;
+        line-height: 1.125;
+        font-weight: 300;
+        @include ons{
+          font-size: 24px;
+        }
+      }
+      @include onm{
+        background:url(../imgs/apple_watch_trio_small.jpg)no-repeat 50% 60%;
+      }
+    }
+  }
+  .btn{
+    position: absolute;
+    top:0;
+    bottom:0;
+    margin: auto;
+    width:100%;
+    height:112px;
+    .leftbtn{
+      left:0;
+      background:url(../imgs/zuo.jpg);
+    }
+    .rightbtn{
+      right:0;
+      background:url(../imgs/you.jpg);
+    }
+    .leftbtn,.rightbtn{
+      width:65px;
+      height:100%;
+      cursor: pointer;
+      position: absolute;
+      top:0;
+    }
+  }
+  .pointer{
+    width:112px;
+    height:8px;
+    @include zuoyou;
+    bottom:5%;
+    li{
+      @include cube(8px);
+      float:left;
+      border-radius: 50%;
+      margin:0 10px;
+      background:#999;
+      box-sizing: border-box;
+      &:hover{
+        background:#666;
+      }
+    }
+    li.current{
+      border-width: 1px;
+      border-style:solid;
+      border-color:#0070c9;
+      top:-1px;
+      left:-1px;
+      background: transparent;
+    }
+  }
+}
+.shange{
+  width:100%;
+  height:200px;
+  ul{
+    width:100%;
+    height:200px;
+    .col{
+      border:1px solid #fff;
+      box-sizing:border-box;
+      height:200px;
+    }
+    .col.img1 {
+        z-index: 2222;
+        background: url(../imgs/apple_tv_medium.jpg)no-repeat center center;
+      }
+    }
+    .col.img2 {
+      z-index: 2222;
+      background: url(../imgs/public_betas_medium.jpg)no-repeat center center;
+      }
+    .col.img3 {
+        z-index:2222;
+        background: url(../imgs/swift_playground_medium.jpg)no-repeat center center;
+    }
+    .col.img4 {
+       z-index: 2222;
+        background: url(../imgs/bts_iphone_medium.jpg)no-repeat center center;
+    }
+  @media screen and (max-width:$m-size){
+    height:400px;
+  }
+  @media screen and (max-width:$s-size){
+    height:800px;
+  }
+  }
+.dibu{
+  z-index:5555;
+  width: 100%;
+  height: 368px;
+  padding: 15px 5%;
+  border-top: 1px solid #fff;
+  box-sizing: border-box;
+  background: #f2f2f2;
+  @media screen and (max-width: 900px){
+    height: 388px;
+  }
+  .dibubox{
+    width: 100%;height: 100%;
+    padding: 0 8%;
+    box-sizing: border-box;
+    .wukuai{
+      width: 100%;height: 82%;
+      padding: 15px 0;
+      box-sizing: border-box;
+      &::after{
+        content: "";
+        clear: both;
+      }
+      ul{
+        width: 20%;
+        height: 70%;
+        float: left;
+        span{
+          font-family: "bold";
+          font-size: 12px;
+          color: #333;
+        }
+        li{
+          font-family: "normal";
+          font-size: 12px;
+          padding: 3px 0;
+          a{
+            color: #666;
+            &:hover{
+              color: #000;
+              text-decoration:underline;
+            }
+          }
+        }
+      }
+    }
+    .lianjie{
+      width: 100%;
+      height: 18%;
+      .lianjie1{
+        width: 100%;
+        height: 50%;
+        li{
+          border-bottom: 1px solid #E3E3E3;
+          padding: 7px 0;
+          box-sizing: border-box;
+          color: #999;
+          font-size: 12px;
+          font-family: "normal";
+          a{
+            color: #0088CC;
+            &:hover{
+              color: #333;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+      .lianjie2{
+        width: 100%;
+        height: 50%;
+        padding: 7px 0;
+        @media screen and (max-width: 900px){
+          height: 70%;
+          li:nth-child(2){
+            clear: both;
+          }
+        }
+        span{
+          display: block;
+          margin-right: 26px;
+          font-size:12px;
+          color:#999;
+          float:left;
+          font-family: 'normal';
+        }
+        li {
+          font-size: 12px;
+          font-family: "normal";
+          float: left;
+          box-sizing: border-box;
+          a{
+            margin-right:2px;
+            color: #666;
+            &:hover{
+              color: #333;
+              text-decoration: underline;
+            }
+          }
+        }
+        .guoqi{
+          width:auto;
+          height:auto;
+          box-sizing: border-box;
+          float: right;
+          img{
+            float:left;
+            vertical-align:bottom;
+          }
+          span{
+            a{
+              text-indent: 10px;
+              float:right;
+              color: #666;
+              font-size: 12px;
+              font-family: "normal";
+              &:hover{
+                color: #333;
+                text-decoration: underline;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.dbxy{
+  background: #f2f2f2;
+  z-index:4444;
+  width: 100%;
+  height:auto;
+  padding: 5% 5%;
+  box-sizing: border-box;
+  display: none;
+  .lie.chuxian{
+    transition: all 0.5s ease;
+    height:auto;
+  }
+  .lie{
+    border-bottom: 1px solid #e3e3e3;
+    position: relative;
+    width: 100%;
+    height:40px;
+    overflow: hidden;
+    transition: all 1s ease;
+    span{
+      display: block;
+      font-family: "normal";
+      font-size: 14px;
+      color: #333;
+      cursor: pointer;
+      font-weight:400;
+      line-height: 40px;
+    }
+    li{
+      line-height: 30px;
+      font-family: "thin";
+      font-size: 10px;
+      a{
+        color: #666;
+        &:hover{
+          color: #000;
+        }
+      }
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+    .xyclose{
+      display:block ;
+      width: 30px;
+      height: 30px;
+      background:url(../imgs/jia.jpg) no-repeat center center;
+      float: right;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transition: all 0.6s ease;
+    }
+    .xyclose.chazhuan{
+      transform: rotateZ(45deg);
+    }
+  }
+  .xylianjie{
+    width: 100%;
+    height:auto;
+    ul{
+      border: none;
+      li{
+        height: 50px;
+        line-height:50px;
+        font-size: 12px;
+        color: #666;
+        font-family: "thin";
+      }
+      a{
+        font-size: 10px;
+        color: #666;
+        font-family: "normal";
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+    .guoqi{
+      width: 100%;
+      height: auto;
+      padding-bottom: 20px;
+      span{
+        margin-left: 1%;
+        font-size: 12px;
+        color: #666;
+        font-family: "normal";
+        a{
+          color:#666;
+          &:hover{
+            color:#000;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+    .disp{
+      width: 100%;
+      height:auto;
+      span{
+        color: #999;
+        font-family: "normal";
+        font-size: 12px;
+      }
+    }
+    .last{
+      width: 100%;
+      height: auto;
+      ul{
+        width: 100%;
+        text-align: justify;
+      }
+      .zzhh{
+        height: auto;
+        line-height: 20px;
+        font-family: "thin";
+        float: left;
+        font-size: 15px;
+        a{
+          font-size: 10px;
+          color: #666;
+          font-family: "normal";
+          margin:0 10px;
+          &:hover{
+            text-decoration: underline;
+          }
+        }
+
+      }
+      .dagezi{
+        display:inline-block;
+        width: 100%;
+        height: 1px;
+        display: none;
+      }
+    }
+  }
+
+}
+.shangdezuihou.shangzh1{
+  z-index: 20000000;
+}
+@include ons{
+  .dibu{
+    display: none;
+  }
+  .dbxy{
+    display:block;
+  }
+}
+
+
+
